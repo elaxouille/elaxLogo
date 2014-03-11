@@ -136,33 +136,6 @@ function doMove() {
             }
             var lastPosition = chose[i];
     }
-    /* ctx.moveTo(btnX[7], btnY[7]);
-    ctx.courBezier(7, 0); 
-    ctx.courBezier(0, 2); 
-    ctx.courBezier(2, 7);
-    ctx.moveTo(btnX[8], btnY[8]);
-    ctx.courBezier(8, 2);
-    ctx.courBezier(2, 1);
-    ctx.moveTo(btnX[0], btnY[0]);
-    ctx.courBezier(0, 4);
-    ctx.courBezier(4, 3);
-    ctx.courBezier(3, 6);
-    ctx.courBezier(6, 5);
-    ctx.courBezier(5, 1);
-    ctx.courBezier(1, 4);
-    ctx.courBezier(4, 5); 
-    ctx.moveTo(btnX[2], btnY[2]); 
-    ctx.courBezier(2, 4); 
-    ctx.moveTo(btnX[8], btnY[8]);
-    ctx.courBezier(8, 1);
-    ctx.courBezier(1, 6);
-    ctx.moveTo(btnX[0], btnY[0]); 
-    ctx.courBezier(0, 8); 
-    ctx.moveTo(btnX[1], btnY[1]);
-    ctx.courBezier(1, 3);
-    ctx.courBezier(3, 5);
-    ctx.moveTo(btnX[1], btnY[1]); 
-    ctx.courBezier(1, 7); */
     ctx.stroke();
     /*### Dessin des carres ###*/
     var contextecercle = document.getElementById("cercles");

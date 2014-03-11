@@ -128,7 +128,7 @@ function doMove() {
     ctx.lineWidth = 1;
     ctx.strokeStyle = couleur;
     
-    for (var i=0; i < chose.length(); i++){ // La boucle magique
+    for (var i=0; i < chose.length; i++){ // La boucle magique
             if(moveToList.indexOf(i) > -1){ // Si dans la liste des moveTo
                     ctx.moveTo(btnX[ chose[i] ], btnY[ chose[i] ]);
             }else{

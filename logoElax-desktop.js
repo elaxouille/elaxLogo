@@ -12,7 +12,8 @@ Logo Alexis Pétard
 /*###
         INITIALISATION DES VARIABLES
 ###*/
-var chose = [7, 0, 2, 7, 8, 2, 1, 0, 4, 3, 6, 5, 1, 4, 5, 2, 4, 8, 1, 6, 0, 8, 1, 3, 5, 1, 7];
+var chose =    [7, 0, 2, 7, 8, 2, 1, 0, 4, 3, 6, 5, 1, 4, 5, 2, 4, 8, 1, 6, 0, 8, 1, 3, 5, 1, 7];
+var moveToList=[0,          4,       7,                     15,   17,      20,   22,      25]
 var cote = 7;
 var demicote = cote / 2;
 var context = null;
@@ -126,33 +127,42 @@ function doMove() {
     */
     ctx.lineWidth = 1;
     ctx.strokeStyle = couleur;
-    ctx.moveTo(btnX[7], btnY[7]); /*contact*/
-    ctx.courBezier(7, 0); /*graphisme*/
-    ctx.courBezier(0, 2); /*progra*/
-    ctx.courBezier(2, 7); /*contact*/
-    ctx.moveTo(btnX[8], btnY[8]); /*actus*/
-    ctx.courBezier(8, 2); /*progra*/
-    ctx.courBezier(2, 1); /*webdev*/
-    ctx.moveTo(btnX[0], btnY[0]); /*graphisme*/
-    ctx.courBezier(0, 4); /*photos*/
-    ctx.courBezier(4, 3); /*illus*/
-    ctx.courBezier(3, 6); /*typos*/
-    ctx.courBezier(6, 5); /*musique*/
-    ctx.courBezier(5, 1); /*webdev*/
-    ctx.courBezier(1, 4); /*photos*/
-    ctx.courBezier(4, 5); /*musique*/
-    ctx.moveTo(btnX[2], btnY[2]); /*progra*/
-    ctx.courBezier(2, 4); /*photos*/
-    ctx.moveTo(btnX[8], btnY[8]); /*actus*/
-    ctx.courBezier(8, 1); /*webdev*/
-    ctx.courBezier(1, 6); /*typos*/
-    ctx.moveTo(btnX[0], btnY[0]); /*graphisme*/
-    ctx.courBezier(0, 8); /*actus*/
-    ctx.moveTo(btnX[1], btnY[1]); /*webdev*/
-    ctx.courBezier(1, 3); /*illus*/
-    ctx.courBezier(3, 5); /*musique*/
-    ctx.moveTo(btnX[1], btnY[1]); /*webdev*/
-    ctx.courBezier(1, 7); /*contact*/
+    
+    for (var i=0; i < chose.length(); i++){ // La boucle magique
+            if(moveToList.indexOf(i) > -1){ // Si dans la liste des moveTo
+                    ctx.moveTo(btnX[ chose[i] ], btnY[ chose[i] ]);
+            }else{
+                    ctx.courBezier(lastPosition, chose[i]);
+            }
+            var lastPosition = chose[i];
+    }
+    /* ctx.moveTo(btnX[7], btnY[7]);
+    ctx.courBezier(7, 0); 
+    ctx.courBezier(0, 2); 
+    ctx.courBezier(2, 7);
+    ctx.moveTo(btnX[8], btnY[8]);
+    ctx.courBezier(8, 2);
+    ctx.courBezier(2, 1);
+    ctx.moveTo(btnX[0], btnY[0]);
+    ctx.courBezier(0, 4);
+    ctx.courBezier(4, 3);
+    ctx.courBezier(3, 6);
+    ctx.courBezier(6, 5);
+    ctx.courBezier(5, 1);
+    ctx.courBezier(1, 4);
+    ctx.courBezier(4, 5); 
+    ctx.moveTo(btnX[2], btnY[2]); 
+    ctx.courBezier(2, 4); 
+    ctx.moveTo(btnX[8], btnY[8]);
+    ctx.courBezier(8, 1);
+    ctx.courBezier(1, 6);
+    ctx.moveTo(btnX[0], btnY[0]); 
+    ctx.courBezier(0, 8); 
+    ctx.moveTo(btnX[1], btnY[1]);
+    ctx.courBezier(1, 3);
+    ctx.courBezier(3, 5);
+    ctx.moveTo(btnX[1], btnY[1]); 
+    ctx.courBezier(1, 7); */
     ctx.stroke();
     /*### Dessin des carres ###*/
     var contextecercle = document.getElementById("cercles");

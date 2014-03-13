@@ -13,7 +13,7 @@ Logo Alexis Pétard
         INITIALISATION DES VARIABLES
 ###*/
 var chose =    [7, 0, 2, 7, 8, 2, 1, 0, 4, 3, 6, 5, 1, 4, 5, 2, 4, 8, 1, 6, 0, 8, 1, 3, 5, 1, 7];
-var moveToList=[0,          4,       7,                     15,   17,      20,   22,      25]
+var moveToList=[0,          4,       7,                     15,   17,      20,   22,      25];
 var cote = 7;
 var demicote = cote / 2;
 var context = null;

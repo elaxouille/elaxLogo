@@ -3,15 +3,21 @@
 Logo Alexis Pétard
 (c) Jérémy Bobel & Alexis Pétard
 
+06.04.14
+
 ###### DWTFYW 2006 ######
 
 0. You just Do What The Fuck You Want with this fucking code
 
 */
 
+var debug = false;
+if (debug) console.log('Bienvenue sur le script de mon logo');
+
 /*###
         INITIALISATION DES VARIABLES
 ###*/
+
 var chose =    [7, 0, 2, 7, 8, 2, 1, 0, 4, 3, 6, 5, 1, 4, 5, 2, 4, 8, 1, 6, 0, 8, 1, 3, 5, 1, 7];
 var moveToList=[0,          4,       7,                     15,   17,      20,   22,      25];
 var cote = 7;
@@ -21,8 +27,8 @@ var ctx = null;
 var nombreBtns = 9;
 var listeBtns = new Array("graphisme", "webdev", "progra", "illus", "photos", "musique", "typos", "contact", "actus");
 var listeThetas = new Array(0.04, 0.09, 0.02, 0.02, 0.1, 0.06, 0.07, 0.1, 0.11);
-var wMax = $(document).width();
-var hMax = $(document).height();
+var wMax = window.innerWidth;
+var hMax = window.innerHeight;
 var deformationCourbe = 1200;
 var amplitudeDeformation = 0;
 var incremTemps = 0;
@@ -31,9 +37,13 @@ var couleur = listeCouleurs[Math.floor(Math.random() * listeCouleurs.length)];
 var thetas = [];
 var deformationCourbeX = [];
 var deformationCourbeY = [];
+var retarDebut = 330;
 for (var i = 0; i <= nombreBtns; i++) {
     thetas[i] = 0.0;
 }
+
+if (debug) console.log('[OK] Variables prêtes');
+
 
 /*### Initialisation de la grille ###*/
 var grilleX = [];
@@ -47,28 +57,15 @@ for (var i = 0; i <= nombreStep; i++) {
 }
 var btnX = new Array(grilleX[6], grilleX[12], grilleX[8], grilleX[18], grilleX[13], grilleX[20], grilleX[22], grilleX[3], grilleX[7]);
 var btnY = new Array(grilleY[6], grilleY[20], grilleY[11], grilleY[7], grilleY[2], grilleY[20], grilleY[9], grilleY[18], grilleY[22]);
-/*###
-        FONCTION GENERALE D'INITIALISATION DU VISUEL
-###*/
-function init() {
-    context = document.getElementById("lignes");
-    ctx = context.getContext("2d");
 
-    /*### Positionnement des boutons ###*/
-    for (var i = 0; i < nombreBtns; i++) {
-        var c = document.getElementById(listeBtns[i]);
-        var tempw = $("#" + listeBtns[i]).width();
-        var temph = $("#" + listeBtns[i]).height();
-        c.style.left = btnX[i] + "px";
-        c.style.top = btnY[i] + "px";
-    }
-}
-window.onload = init();
+if (debug) console.log('[OK] Grille prête');
+
 /*###
         FONCTION GENERALE D'ANIMATION DU VISUEL
 ###*/
 function doMove() {
-
+wMax = $(document).width();
+hMax = $(document).height();
     /*### Positionnement des boutons ###*/
     for (var i = 0; i < nombreBtns; i++) {
         var c = document.getElementById(listeBtns[i]);
@@ -83,19 +80,15 @@ function doMove() {
         btnY[o] = (Math.sin(thetas[o]) + btnY[o]) * 1;
     }
     /*### Recupération du canvas et de son contexte ###*/
-    context = document.getElementById("lignes");
+    context = document.getElementById("cvsLogo");
     ctx = context.getContext('2d');
     /*### Redimensionnement du canvas ###*/
     ctx.canvas.width = wMax;
     ctx.canvas.height = hMax;
     /*### Dessin des lignes ###*/
     ctx.beginPath();
-    /* 
-       GRAPHISME#WEBDEV#PROGRA#ILLUS#PHOTOS#MUSIQUE#TYPOS#CONTACT#ACTUS
-       000000000#111111#222222#33333#444444#5555555#66666#7777777#88888
-    */
-    incremTemps++; /* Retardement du départ : 330ms */
-    if (incremTemps >= 330) {
+    incremTemps++;
+    if (incremTemps >= retarDebut) {
         amplitudeDeformation++;
     }
     for (var j = 0; j <= nombreBtns; j++) {
@@ -106,7 +99,7 @@ function doMove() {
     ###### FONCTION DE SYNTHESE COURBE DE BEZIER ######
     */
     CanvasRenderingContext2D.prototype.courBezier = function (a, b) {
-        if (incremTemps >= 330) { // RETARDEMENT DU DEBUT
+        if (incremTemps >= retarDebut) { // RETARDEMENT DU DEBUT
             return this.bezierCurveTo(
                 btnX[a] + deformationCourbeX[a],
                 btnY[a] + deformationCourbeY[a],
@@ -122,9 +115,6 @@ function doMove() {
                 btnX[b], btnY[b]);
         }
     };
-    /*
-    [7, 0, 2, 7, 8, 2, 1, 0, 4, 3, 6, 5, 1, 4, 5, 2, 4, 8, 1, 6, 0, 8, 1, 3, 5, 1, 7]; 
-    */
     ctx.lineWidth = 1;
     ctx.strokeStyle = couleur;
     
@@ -138,15 +128,11 @@ function doMove() {
     }
     ctx.stroke();
     /*### Dessin des carres ###*/
-    var contextecercle = document.getElementById("cercles");
-    var ctxc = contextecercle.getContext("2d");
-    ctxc.canvas.width = wMax;
-    ctxc.canvas.height = hMax;
     for (var a = 0; a < nombreBtns; a++) {
-        ctxc.beginPath();
-        ctxc.rect(btnX[a] - demicote, btnY[a] - demicote, cote, cote);
-        ctxc.fill();
-        ctxc.closePath();
+        ctx.beginPath();
+        ctx.rect(btnX[a] - demicote, btnY[a] - demicote, cote, cote);
+        ctx.fill();
+        ctx.closePath();
     }
 }
-setInterval(doMove, 30);
+setInterval(doMove, 20);
